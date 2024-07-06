@@ -5,16 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TemplateWpf"
         xmlns:hc="https://handyorg.github.io/handycontrol"
-        xmlns:viewModel="clr-namespace:TemplateWpf"
         xmlns:wpfExtend="clr-namespace:TemplateWpf.WpfExtend"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance local:MainWindowViewModel}"
+        xmlns:halcon="clr-namespace:HalconDotNet;assembly=halcondotnet"
         Title="MainWindow"
         Height="450"
         Width="800">
 
-    <StackPanel Orientation="Vertical">
-        <StackPanel Orientation="Horizontal">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="0">
             <Button Command="{Binding InfoCommand}"
                     Style="{StaticResource ButtonInfo}">Info</Button>
             <Button Command="{Binding WarningCommand}"
@@ -30,5 +36,9 @@
 
             </Button>
         </StackPanel>
-    </StackPanel>
+        <halcon:HSmartWindowControlWPF Grid.Row="1"></halcon:HSmartWindowControlWPF>
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <TextBlock>TextBlock</TextBlock>
+        </StackPanel>
+    </Grid>
 </Window>
