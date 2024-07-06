@@ -19,17 +19,40 @@
             <RowDefinition />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal"
-                    Grid.Row="0">
-            <Button Command="{Binding InfoCommand}"
-                    Style="{StaticResource ButtonInfo}">Info</Button>
-            <Button Command="{Binding WarningCommand}"
-                    Style="{StaticResource ButtonWarning}">Warning</Button>
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="0">
+                <Button Command="{Binding ReadImgCommand}"
+                        Style="{StaticResource ButtonDefault}"
+                        hc:IconElement.Geometry="{wpfExtend:MaterialGeometry Kind=EarthBoxPlus}">读取图片</Button>
+                <Button Command="{Binding RunCommand}"
+                        Style="{StaticResource ButtonDashedSuccess}"
+                        hc:IconElement.Geometry="{wpfExtend:MaterialGeometry Kind=Power}">定位结果</Button>
+
+                <Button Command="{Binding SelectFileCommand}"
+                        Style="{StaticResource ButtonDashedSuccess}"
+                        hc:IconElement.Geometry="{wpfExtend:MaterialGeometry Kind=ClipboardFile}">选择文件</Button>
+
+                <Button Command="{Binding SelectFolderCommand}"
+                        Style="{StaticResource ButtonDashedSuccess}"
+                        hc:IconElement.Geometry="{wpfExtend:MaterialGeometry Kind=ClipboardFile}">选择文件夹</Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding ReadImgCommand}"
+                        Style="{StaticResource ButtonDefault}"
+                        hc:IconElement.Geometry="{wpfExtend:MaterialGeometry Kind=EarthBoxPlus}">读取图片</Button>
+            </StackPanel>
         </StackPanel>
-        <halcon:HSmartWindowControlWPF Grid.Row="1"></halcon:HSmartWindowControlWPF>
+        
+        <!--为了防止拖拽和缩放，这里可以关掉-->
+        <halcon:HSmartWindowControlWPF Grid.Row="1"
+                                       x:Name="HSmart"
+                                       HMoveContent="False"
+                                       HZoomContent="Off"
+                                       HDoubleClickToFitContent="False" />
         <StackPanel Grid.Row="2"
                     Orientation="Horizontal">
-            <TextBlock>TextBlock</TextBlock>
+            <TextBlock x:Name="textBlock">TextBlock</TextBlock>
         </StackPanel>
     </Grid>
 </Window>

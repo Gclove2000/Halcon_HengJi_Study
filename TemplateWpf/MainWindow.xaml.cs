@@ -19,7 +19,11 @@ namespace TemplateWpf
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainWindowViewModel();
+            var dataContext = new MainWindowViewModel();
+            dataContext.HSmart = HSmart;
+            dataContext.TextBlock = textBlock;
+            DataContext = dataContext;
+            
         }
     }
 
