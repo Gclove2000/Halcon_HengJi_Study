@@ -25,19 +25,10 @@
                     Style="{StaticResource ButtonInfo}">Info</Button>
             <Button Command="{Binding WarningCommand}"
                     Style="{StaticResource ButtonWarning}">Warning</Button>
-            <Button Command="{Binding ErrorCommand}"
-                    Style="{StaticResource ButtonDanger}">Error</Button>
-            <Button Command="{Binding SuccessCommand}"
-                    Style="{StaticResource ButtonSuccess}">Success</Button>
-            <Button Command="{Binding FatalCommand}"
-                    Style="{StaticResource ButtonDefault}">Fatal</Button>
-            <Button Style="{StaticResource ButtonIcon}"
-                    hc:IconElement.Geometry="{wpfExtend:MaterialGeometry Kind=FuseAlert}">
-
-            </Button>
         </StackPanel>
         <halcon:HSmartWindowControlWPF Grid.Row="1"></halcon:HSmartWindowControlWPF>
-        <StackPanel Grid.Row="2" Orientation="Horizontal">
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal">
             <TextBlock>TextBlock</TextBlock>
         </StackPanel>
     </Grid>
