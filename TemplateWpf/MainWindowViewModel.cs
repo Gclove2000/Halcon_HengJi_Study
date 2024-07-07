@@ -1,12 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using HalconDotNet;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using TemplateWpf.Model;
 using TemplateWpf.Utils;
 
 namespace TemplateWpf
@@ -21,10 +23,23 @@ namespace TemplateWpf
         private HTuple modelId = new HTuple();
 
         public HSmartWindowControlWPF HSmart { get; set; }
-
+        public MyHDrawingCircle Circle = new MyHDrawingCircle();
+        public MyHDrawingRect Rect = new MyHDrawingRect();
         public MainWindowViewModel()
         {
+            Rect.DrawingChanged += Rect_DrawingRectChanged;
+            Circle.DrawingChanged += Circle_DrawingChanged;
+        }
 
+        private void Circle_DrawingChanged(MyHCircle obj)
+        {
+            NLogHelper.Debug(obj.ToString());
+        }
+
+        private void Rect_DrawingRectChanged(MyHRectangle obj)
+        {
+
+            NLogHelper.Debug(obj.ToString());
         }
 
         [RelayCommand]
@@ -36,20 +51,22 @@ namespace TemplateWpf
             HSmart.HalconWindow.DispObj(HImage);
             //图片适应阶段
             HSmart.SetFullImagePart();
+            var templateUrl = "D:/workspace/program/Halcon/WPF_Halcon_StudyProgram/Halcon/train/A_Template.shm";
+            MsgHelper.Info($"读取文件{templateUrl}");
+           
+            HOperatorSet.ReadShapeModel(templateUrl, out modelId);
         }
 
         [RelayCommand]
         public void Run()
         {
-            var templateUrl = "D:/workspace/program/Halcon/WPF_Halcon_StudyProgram/Halcon/train/A_Template.shm";
-            MsgHelper.Info($"读取文件{templateUrl}");
+            HSmart.HalconWindow.DispObj(HImage);
             var imageParameter = (
-                    row: new HTuple(),
-                    col: new HTuple(),
-                    angle: new HTuple(),
-                    score: new HTuple()
-                );
-            HOperatorSet.ReadShapeModel(templateUrl, out modelId);
+                   row: new HTuple(),
+                   col: new HTuple(),
+                   angle: new HTuple(),
+                   score: new HTuple()
+               );
             HTuple start = new HTuple();
             HTuple end = new HTuple();
             HOperatorSet.TupleRad(-90, out start);
@@ -110,14 +127,48 @@ namespace TemplateWpf
             }
         }
 
+        [RelayCommand]
         public void DrawCircle()
         {
-
+            MsgHelper.Info("绘制圆形");
+            Circle.HWindow = HSmart.HalconWindow;
+            Circle.Draw(100, 100, 50);
         }
 
+        [RelayCommand]
         public void DrawRectangle()
         {
+            Rect.HWindow = HSmart.HalconWindow;
+            Rect.Draw(100, 100, 200, 200);
+            MsgHelper.Info("绘制矩形");
+        }
 
+
+        [RelayCommand]
+        public void GetRectArea()
+        {
+            var rectObj = Rect.GetRegion();
+            var newImage = new HObject();
+            var partImage = new HObject();
+            HOperatorSet.ReduceDomain(HImage, rectObj, out partImage);
+            HOperatorSet.CropDomain(partImage, out newImage);
+            //HSmart.HalconWindow.DispObj(newImage);
+
+            HOperatorSet.CreateShapeModel(newImage, "auto", (new HTuple(0)).TupleRad(), (new HTuple(90)).TupleRad(), "auto", "auto", "use_polarity", "auto", "auto", out modelId);
+            var folderPath = "Output/" + Guid.NewGuid();
+            MsgHelper.Info($"文件输出路径:{folderPath}");
+
+            if (!System.IO.Directory.Exists(folderPath))
+            {
+                System.IO.Directory.CreateDirectory(folderPath);
+            }
+            var imagePath = folderPath + "/" + Guid.NewGuid() +".png";
+            var filePath = folderPath + "/" + Guid.NewGuid() +".shm";
+            NLogHelper.Debug($"图片保存路径:{imagePath}");
+            NLogHelper.Debug($"文件保存路径:{imagePath}");
+
+            HOperatorSet.WriteImage(newImage, "png", 0, imagePath);
+            HOperatorSet.WriteShapeModel(modelId, filePath);
         }
     }
 }

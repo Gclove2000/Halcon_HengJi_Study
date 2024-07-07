@@ -38,12 +38,19 @@
                         hc:IconElement.Geometry="{wpfExtend:MaterialGeometry Kind=ClipboardFile}">选择文件夹</Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Button Command="{Binding ReadImgCommand}"
+                <Button Command="{Binding DrawCircleCommand}"
                         Style="{StaticResource ButtonDefault}"
-                        hc:IconElement.Geometry="{wpfExtend:MaterialGeometry Kind=EarthBoxPlus}">读取图片</Button>
+                        hc:IconElement.Geometry="{wpfExtend:MaterialGeometry Kind=Draw}">画圆</Button>
+                <Button Command="{Binding DrawRectangleCommand}"
+                        Style="{StaticResource ButtonDefault}"
+                        hc:IconElement.Geometry="{wpfExtend:MaterialGeometry Kind=Draw}">画矩形</Button>
+
+                <Button Command="{Binding GetRectAreaCommand}"
+                        Style="{StaticResource ButtonDefault}"
+                        hc:IconElement.Geometry="{wpfExtend:MaterialGeometry Kind=ScissorsCutting}">获取矩形区域图像</Button>
             </StackPanel>
         </StackPanel>
-        
+
         <!--为了防止拖拽和缩放，这里可以关掉-->
         <halcon:HSmartWindowControlWPF Grid.Row="1"
                                        x:Name="HSmart"
