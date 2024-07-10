@@ -24,16 +24,20 @@ namespace MachineVision.Models
         private ObservableCollection<NavigationItem> items = null;
 
 
+        [ObservableProperty]
+        private string iconStr = "";
+
         public NavigationItem()
         {
 
         }
-        public NavigationItem(string _name,string _title,PackIconKind _icon = PackIconKind.None,ObservableCollection<NavigationItem> _items = null)
+        public NavigationItem(string _name, string _title, PackIconKind _icon = PackIconKind.None, ObservableCollection<NavigationItem> _items = null)
         {
             Name = _name;
             Title = _title;
             Icon = _icon;
             Items = _items;
+            IconStr = _icon.ToString();
         }
 
     }

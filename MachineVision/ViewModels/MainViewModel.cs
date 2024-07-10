@@ -1,4 +1,7 @@
-﻿using MachineVision.Core;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using MachineVision.Core;
+using MachineVision.Models;
 using MachineVision.Services;
 using Prism.Regions;
 using System;
@@ -10,21 +13,40 @@ using System.Windows.Navigation;
 
 namespace MachineVision.ViewModels
 {
-    public class MainViewModel : NavigationViewModel
+    public partial class MainViewModel : NavigationViewModel
     {
-        private NavigationMenuService navigationMenuService;
+        public NavigationMenuService NavigationMenuService { get; set; }
+
+
+        [ObservableProperty]
+        private bool isTopDrawOpen = true;
+
         public MainViewModel(NavigationMenuService navigationMenuService)
         {
-            this.navigationMenuService = navigationMenuService;
+            this.NavigationMenuService = navigationMenuService;
         }
 
         public override void OnNavigatedTo(NavigationContext navigationContext)
         {
-            navigationMenuService.InitMenus();
+            NavigationMenuService.InitMenus();
 
             base.OnNavigatedTo(navigationContext);
         }
 
+        [RelayCommand]
+        public void Navigate(NavigationItem item)
+        {
+            if (item == null)
+            {
+                return;
+            }
+            if (item.Name == "All")
+            {
+                IsTopDrawOpen = true;
+                return;
+            }
+            IsTopDrawOpen = false;
+        }
 
 
     }
