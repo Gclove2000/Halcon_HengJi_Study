@@ -49,11 +49,15 @@ namespace MachineVision
             }
             base.OnInitialized();
         }
-
+        /// <summary>
+        /// Ioc注入
+        /// </summary>
+        /// <param name="services"></param>
         protected override void RegisterTypes(IContainerRegistry services)
         {
             services.RegisterForNavigation<MainView, MainViewModel>();
-            services.RegisterSingleton<INavigationMenuService,NavigationMenuService>();
+            services.RegisterForNavigation<DashboardView, DashboardViewModel>();
+            services.RegisterSingleton<NavigationMenuService>();
         }
 
     }

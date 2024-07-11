@@ -11,6 +11,8 @@ namespace MachineVision.Models
 {
     public partial class NavigationItem : ObservableObject
     {
+        public enum RegionNameEnum { MainViewRegion }
+
         [ObservableProperty]
         private string title = "title";
 
@@ -18,26 +20,23 @@ namespace MachineVision.Models
         private string name = "name";
 
         [ObservableProperty]
-        private PackIconKind icon = PackIconKind.None;
+        private PackIconKind icon = PackIconKind.Add;
 
         [ObservableProperty]
         private ObservableCollection<NavigationItem> items = null;
 
 
-        [ObservableProperty]
-        private string iconStr = "";
 
         public NavigationItem()
         {
 
         }
-        public NavigationItem(string _name, string _title, PackIconKind _icon = PackIconKind.None, ObservableCollection<NavigationItem> _items = null)
+        public NavigationItem(string _name, string _title, PackIconKind _icon = PackIconKind.Add, ObservableCollection<NavigationItem> _items = null)
         {
             Name = _name;
             Title = _title;
             Icon = _icon;
             Items = _items;
-            IconStr = _icon.ToString();
         }
 
     }

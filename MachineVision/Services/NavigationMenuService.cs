@@ -20,31 +20,31 @@ namespace MachineVision.Services
         {
             Items.Clear();
 
-            Items.Add(new NavigationItem("All", "全部", PackIconKind.None, new ObservableCollection<NavigationItem>()
+            Items.Add(new NavigationItem("All", "全部", PackIconKind.Add, new ObservableCollection<NavigationItem>()
             {
-                new NavigationItem("Template","模板匹配", PackIconKind.None,new ObservableCollection<NavigationItem>()
+                new NavigationItem("Template","模板匹配", PackIconKind.Add,new ObservableCollection<NavigationItem>()
                 {
-                    new NavigationItem("OutLine","轮廓匹配"),
-                    new NavigationItem("Shape","形状匹配"),
-                    new NavigationItem("Similarity","相似度匹配"),
-                    new NavigationItem("ShapeChange","形变匹配"),
+                    new NavigationItem("OutLine","轮廓匹配",PackIconKind.ShapeCirclePlus),
+                    new NavigationItem("Shape","形状匹配",PackIconKind.ShapeOutline),
+                    new NavigationItem("Similarity","相似度匹配",PackIconKind.Clouds),
+                    new NavigationItem("ShapeChange","形变匹配",PackIconKind.ShapeOvalPlus),
                 }),
-                new NavigationItem("Compare","比较测量", PackIconKind.None,new ObservableCollection<NavigationItem>()
+                new NavigationItem("Compare","比较测量", PackIconKind.Add,new ObservableCollection<NavigationItem>()
                 {
-                    new NavigationItem("Circle","卡尺找圆"),
-                    new NavigationItem("Color","颜色检测"),
-                    new NavigationItem("Ruler","几何测量"),
+                    new NavigationItem("Circle","卡尺找圆",PackIconKind.Circle),
+                    new NavigationItem("Color","颜色检测",PackIconKind.Palette),
+                    new NavigationItem("Ruler","几何测量",PackIconKind.Ruler),
                 }),
-                new NavigationItem("Character","字符识别", PackIconKind.None,new ObservableCollection<NavigationItem>()
+                new NavigationItem("Character","字符识别", PackIconKind.Add,new ObservableCollection<NavigationItem>()
                 {
-                    new NavigationItem("Character","字符识别"),
-                    new NavigationItem("Barcode","一维码识别"),
-                    new NavigationItem("Qrcode","二维码识别"),
+                    new NavigationItem("Character","字符识别", PackIconKind.FormatColorText),
+                    new NavigationItem("Barcode","一维码识别", PackIconKind.Barcode),
+                    new NavigationItem("Qrcode","二维码识别", PackIconKind.Qrcode),
                 }),
-                new NavigationItem("Flaw","缺陷检测", PackIconKind.None,new ObservableCollection<NavigationItem>()
+                new NavigationItem("Flaw","缺陷检测", PackIconKind.Add,new ObservableCollection<NavigationItem>()
                 {
-                    new NavigationItem("Crop","差分模型"),
-                    new NavigationItem("CropRotate","形变模型"),
+                    new NavigationItem("Crop","差分模型", PackIconKind.Crop),
+                    new NavigationItem("CropRotate","形变模型", PackIconKind.CropRotate),
                 }),
             }));
 

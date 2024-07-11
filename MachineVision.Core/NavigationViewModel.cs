@@ -10,7 +10,6 @@ namespace MachineVision.Core
 {
     public class NavigationViewModel : ObservableObject, INavigationAware
     {
-
         public NavigationViewModel() {
         
         }

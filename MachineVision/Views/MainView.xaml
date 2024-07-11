@@ -31,26 +31,33 @@
                            FontSize="22"
                            DataContext="{Binding NavigationMenuService}"
                            FontWeight="Bold" />
+                <!--ItemsSource,声明数据源-->
                 <ListBox ItemsSource="{Binding NavigationMenuService.Items}"
                          x:Name="listMenuBox"
                          Grid.Column="1">
+                    <!--ItemsPanel,设置容器-->
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal" />
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
+                    <!--ItemContainerStyle,设置子项样式-->
 
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="FocusVisualStyle"
                                     Value="{x:Null}" />
+                            <!--ItemContainerStyle,设置子项样式模板-->
                             <Setter Property="Template">
                                 <Setter.Value>
+                                    <!--ControlTemplate,确定设置的是ListBoxItem-->
+
                                     <ControlTemplate TargetType="ListBoxItem">
                                         <Grid>
                                             <Border x:Name="border" />
                                             <Border x:Name="borderHeader"
                                                     Background="{TemplateBinding Background}" />
+                                            <!--ContentPresenter,就是ListItem的代称-->
                                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                                               TextBlock.Foreground="{TemplateBinding Foreground}" />
@@ -93,7 +100,7 @@
                             </Setter>
                         </Style>
                     </ListBox.ItemContainerStyle>
-
+                    <!--数据源，其实就是上面的ContentPresenter -->
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -160,6 +167,9 @@
                 </md:DrawerHost.TopDrawerContent>
             </md:DrawerHost>
         </md:DialogHost>
-
+         
+        <!--注册MainViewRegion-->
+        <ContentControl prism:RegionManager.RegionName="MainViewRegion"
+                        x:Name="MainViewContentControl" Grid.Row="1" />
     </Grid>
 </Window>
